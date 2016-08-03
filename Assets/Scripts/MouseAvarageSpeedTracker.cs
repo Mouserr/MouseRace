@@ -5,6 +5,7 @@ namespace Assets.Scripts
     class MouseAvarageSpeedTracker : AbstractTimeAvarageTracker
     {
         public float Epsilon;
+        public bool OnPress;
 
         private Vector3 prevPosition;
         private bool inited;
@@ -12,6 +13,12 @@ namespace Assets.Scripts
 
         protected override float GetNewValue()
         {
+            if (OnPress && !Input.GetMouseButton(0))
+            {
+                inited = false;
+                return 0;
+            }
+
             float newValue = 0;
 
             if (inited)
